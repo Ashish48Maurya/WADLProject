@@ -31,7 +31,7 @@ export default function Navbar() {
             <ul className="flex space-x-4">
               {isLoggedIn ? (
                 <li className="flex items-center">
-                  <p className="mr-2">{userData.fullname}</p>
+                  <p className="mr-2 font-bold">{userData.fullname}</p>
                   <button
                     className="text-red-500 font-bold"
                     onClick={() => {
@@ -46,7 +46,7 @@ export default function Navbar() {
                 <>
                   <li>
                     <button
-                      className="bg-gray-600 hover:bg-gray-700 py-1 px-4 rounded-lg text-gray-100 border-b-4 border-gray-700 hover:border-gray-800 transition duration-300"
+                      className="btn-signin"
                       onClick={() => navigate("/login")}
                     >
                       SignIn
@@ -54,40 +54,18 @@ export default function Navbar() {
                   </li>
                   <li>
                     <button
-                      className="bg-yellow-600 hover:bg-yellow-700 py-1 px-4 rounded-lg text-yellow-100 border-b-4 border-yellow-700 hover:border-yellow-800 transition duration-300"
+                      className="btn-signup"
                       onClick={() => navigate("/register")}
                     >
                       SignUp
                     </button>
                   </li>
                 </>
-              )
-            }
-
-          </ul>
-          <form className="d-flex fs-6 fw-medium ms-auto navbar-nav">
-            {isLoggedIn ? (
-              <>
-                <div className="btn-txt-grp d-flex">
-                  <p className='user-name my-auto fw-bolder' style={{ marginRight: "5px" }}>{userData.fullname}</p>
-                  <button className="btn btn-outline-danger ms-2 fw-bold" type="button" style={{ maxHeight: "min-content", background: "none", color: "red", padding: "5px 10px", fontSize: "15px" }} onClick={() => { LogoutUser(); navigate('/login') }}>Logout</button>
-                </div>
-              </>
-            ) : (
-              <>
-
-                <button className="btn btn-outline-success ms-2 fw-bold" type="button" style={{ maxHeight: "min-content", background: "none", color: "green", padding: "4px 8px", fontSize: "15px", maxWidth: "70px" }} onClick={() => { navigate('/login') }}>SignIn</button>
-                <button className="btn btn-outline-primary ms-2 fw-bold" type="button" style={{ maxHeight: "min-content", background: "none", color: "blue", padding: "4px 8px", fontSize: "15px", maxWidth: "70px" }} onClick={() => { navigate('/register') }}>SignUp</button>
-              </>
-            )}
-          </form>
+              )}
+            </ul>
+          </div>
         </div>
       </div>
-      <style>{`
-        li{
-          font-weight:bold
-        }
-      `}</style>
     </nav>
   );
 }
