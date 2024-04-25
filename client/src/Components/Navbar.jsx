@@ -1,8 +1,8 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../Components/Store/auth'
-export default function Navbar() {
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../Components/Store/auth";
 
+export default function Navbar() {
   const { isLoggedIn, LogoutUser } = useAuth();
   const data = localStorage.getItem("USER");
   const userData = JSON.parse(data);
@@ -55,5 +55,5 @@ export default function Navbar() {
         }
       `}</style>
     </nav>
-  )
+  );
 }
