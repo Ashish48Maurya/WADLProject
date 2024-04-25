@@ -9,22 +9,56 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <nav class="navbar navbar-expand-lg">
-      <div className="container-fluid" style={{ background: "rgba(255, 255, 255, 0.8)" }}>
-        <a class="navbar-brand fw-bolder" style={{ color: "#0d6efd" }}>AppName</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0">
-            {
-              userData && userData.userType === 'student' && (
+    <nav className="bg-opacity-80 bg-white">
+      <div className="container mx-auto">
+        <div className="flex items-center justify-between py-2">
+          <Link to="/" className="text-black font-bold">
+            AppName
+          </Link>
+          <button
+            className="block lg:hidden px-2 text-gray-500 focus:outline-none"
+            aria-label="Toggle navigation"
+          >
+            <svg
+              className="w-6 h-6 fill-current"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+          </button>
+          <div className="hidden lg:block">
+            <ul className="flex space-x-4">
+              {isLoggedIn ? (
+                <li className="flex items-center">
+                  <p className="mr-2">{userData.fullname}</p>
+                  <button
+                    className="text-red-500 font-bold"
+                    onClick={() => {
+                      LogoutUser();
+                      navigate("/login");
+                    }}
+                  >
+                    Logout
+                  </button>
+                </li>
+              ) : (
                 <>
-                  <li className="nav-item">
-                    <Link className="nav-link active" aria-current="page" to='/form'>SeekPermission</Link>
+                  <li>
+                    <button
+                      className="bg-gray-600 hover:bg-gray-700 py-1 px-4 rounded-lg text-gray-100 border-b-4 border-gray-700 hover:border-gray-800 transition duration-300"
+                      onClick={() => navigate("/login")}
+                    >
+                      SignIn
+                    </button>
                   </li>
-                  <li className="nav-item">
-                    <Link className="nav-link active" aria-current="page" to='/schedule'>Scheduler</Link>
+                  <li>
+                    <button
+                      className="bg-yellow-600 hover:bg-yellow-700 py-1 px-4 rounded-lg text-yellow-100 border-b-4 border-yellow-700 hover:border-yellow-800 transition duration-300"
+                      onClick={() => navigate("/register")}
+                    >
+                      SignUp
+                    </button>
                   </li>
                 </>
               )
