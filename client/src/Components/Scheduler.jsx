@@ -20,7 +20,7 @@ const data = [
   {
     Id: 1,
     Subject: "Meeting - 1",
-    StartTime: new Date(2024, 4, 15, 10, 0),
+    StartTime: new Date(2024, 1, 15, 10, 0),
     EndTime: new Date(2024, 1, 16, 12, 30),
     IsAllDay: false,
   },
@@ -44,12 +44,12 @@ const Scheduler = () => {
   const eventSettings = { dataSource: data };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center h-screen">
       <ScheduleComponent
+        currentView="Month"
         height="550px"
         width="800px"
         eventSettings={eventSettings}
-        selectedDate={new Date(2024, 4, 15)}
       >
         <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
         <ViewsDirective>
