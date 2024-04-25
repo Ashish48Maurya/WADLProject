@@ -26,7 +26,7 @@ export default function Login() {
                     email: mail,
                     password: password,
                 }),
-            });
+            })
 
             if (response.status === 200) {
                 const res_data = await response.json();

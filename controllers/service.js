@@ -1,6 +1,8 @@
 const User = require('../models/user')
+const Form = require('../models/permissionLetter')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
+
 
 const register = async (req, res) => {
     const { fullname, department, password, email, userType } = req.body;
@@ -18,7 +20,7 @@ const register = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
-    
+
         const newUser = new User({
             fullname,
             department,
@@ -33,7 +35,7 @@ const register = async (req, res) => {
             message: "Registered Successfully",
             userId: newUser._id.toString(),
         });
-    } 
+    }
     catch (err) {
         return res.status(500).json({ error: `Internal server error: ${err}` });
     }
@@ -46,7 +48,7 @@ const login = async (req, res) => {
         return res.status(422).json({ error: "Please provide a valid email and password" });
     }
 
-    try{ 
+    try {
         const user = await User.findOne({ email });
 
         if (!user) {
@@ -73,4 +75,15 @@ const login = async (req, res) => {
     }
 }
 
-module.exports = {register,login};
+const teachers = async (req, res) => {
+    try {
+        const teachers = await User.find({ userType: "teacher" });
+        return res.status(200).json({ data: teachers })
+    }
+    catch (err) {
+        return res.status(500).json({ error: "Interval Server Error" });
+    }
+}
+
+
+module.exports = { register, login, teachers };

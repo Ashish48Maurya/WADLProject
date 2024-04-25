@@ -22,7 +22,15 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true,
-    }
+    },
+    requests:[{ //for faculty
+        type: Schema.Types.ObjectId,
+        ref: 'permission', 
+    }],
+    hosted:[{
+        type: Schema.Types.ObjectId,
+        ref: 'permission', 
+    }]
 });
 
 

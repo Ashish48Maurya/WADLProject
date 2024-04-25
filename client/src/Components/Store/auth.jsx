@@ -18,36 +18,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('USER');
     };
 
-    const userAuthentication = async () => {
-        try {
-            const response = await fetch(`${backend_api}/user`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-    
-            if (response.ok) {
-                const data = await response.json();
-
-                if (data.msg) {
-                    localStorage.setItem('USER', JSON.stringify(data.msg));
-                } else {
-                    console.error("Unexpected API response format:", data);
-                }
-            } else {
-                console.error("Server returned an error:", response.status, response.statusText);
-            }
-        } catch (error) {
-            console.error("Error during user authentication:", error);
-        }
-    };
-    
-
-    useEffect(() => {
-        userAuthentication();
-    }, [])
-
 
     return (
         <AuthContext.Provider
