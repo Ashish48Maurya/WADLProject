@@ -21,6 +21,7 @@ const transporter = nodemailer.createTransport({
 
 router.post('/register', service.register);
 router.post('/login', service.login)
+router.post('/event', service.event)
 
 router.post('/permission', authMiddleware(), upload.single('file'), async (req, res) => {
     const { eventType, eventName, teamSize, noOfTeams, outSiders, supervisor, permissionFrom } = req.body;
