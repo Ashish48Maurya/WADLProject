@@ -1,6 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@property --gradientColorStopPercent {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+.calendarJoinButton {
+  background: linear-gradient(
+    45deg,
+    #38a2f8 var(--gradientColorStopPercent),
+    white 0%
+  );
+  transition: --gradientColorStopPercent 0.1s linear;
+}
+.calendarJoinButton:hover {
+  --gradientColorStopPercent: 100%;
+}
 
 @import "../node_modules/@syncfusion/ej2-base/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
@@ -13,14 +30,13 @@
 @import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-react-schedule/styles/material.css";
 
+/* {
+  outline: solid hsl(0, 0%, 90%, 50%);
+}*/
+
 body {
   margin: 0;
   font-family: syste, -ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
