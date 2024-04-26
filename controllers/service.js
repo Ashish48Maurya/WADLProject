@@ -1,6 +1,6 @@
-const User = require('../models/user')
-const Form = require('../models/permissionLetter')
-const jwt = require('jsonwebtoken')
+const User = require('../models/user');
+const Event = require('../models/event');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 
@@ -85,5 +85,25 @@ const teachers = async (req, res) => {
     }
 }
 
+const event = async (req, res) => {
+    const { StartTime, EndTime, Subject } = req.body;
+    if (!StartTime || !EndTime || !Subject) {
+        console.log('Please add all the fields');
+        return res.status(422).json({ error: "Please add all the fields" });
+    }
+    try {
+        const event = new Event({
+            StartTime,
+            EndTime,
+            Subject
+        });
 
-module.exports = { register, login, teachers };
+        await event.save();
+    }
+    catch (err) {
+        return res.status(500).json({ error: "Interval Server Error" });
+    }
+}
+
+
+module.exports = { register, login, teachers,event };
