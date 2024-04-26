@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../Components/Store/auth";
 
 export default function Navbar() {
@@ -7,6 +7,13 @@ export default function Navbar() {
   const data = localStorage.getItem("USER");
   const userData = JSON.parse(data);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isHomepage = location.pathname === "/";
+
+  if (!isLoggedIn && !isHomepage) {
+    return null;
+  }
 
   return (
     <nav className="bg-opacity-80 bg-white">
