@@ -16,10 +16,10 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-opacity-80 bg-white">
+    <nav className="bg-white bg-opacity-80">
       <div className="container mx-auto">
-        <div className="flex items-center justify-between py-2">
-          <Link to="/" className="text-black font-bold">
+        <div className="flex items-center justify-between py-4">
+          <Link to="/" className=" text-neutral-900 font-bold text-lg">
             AppName
           </Link>
           <button
@@ -40,7 +40,7 @@ export default function Navbar() {
                 <li className="flex items-center">
                   <p className="mr-2 font-bold">{userData.fullname}</p>
                   <button
-                    className="text-red-500 font-bold"
+                    className="calendarJoinButton | px-[1.375rem] py-[0.375rem] rounded-full border border-[#9F9F9F] text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none"
                     onClick={() => {
                       LogoutUser();
                       navigate("/login");
@@ -53,7 +53,7 @@ export default function Navbar() {
                 <>
                   <li>
                     <button
-                      className="btn-signin"
+                      className="calendarJoinButton | px-[1.375rem] py-[0.375rem] rounded-full border border-[#9F9F9F] text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none"
                       onClick={() => navigate("/login")}
                     >
                       SignIn
@@ -61,7 +61,7 @@ export default function Navbar() {
                   </li>
                   <li>
                     <button
-                      className="btn-signup"
+                      className="calendarJoinButton | px-[1.375rem] py-[0.375rem] rounded-full border border-[#9F9F9F] text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none"
                       onClick={() => navigate("/register")}
                     >
                       SignUp
