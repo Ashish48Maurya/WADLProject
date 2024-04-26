@@ -11,7 +11,7 @@ export default function EventHistory() {
     //   ))}
     // </div>
     <div class="lectureCard | grid hover:gap-[0.9375rem] grid-cols-[0_1fr] hover:grid-cols-[0.5rem_1fr] transition-[grid-template-columns]">
-      <div class="lectureCardActiveBar | bg-[#38A2F8] rounded-full"></div>
+      <div class="lectureCardActiveBar | bg-[#38f86e] rounded-full"></div>
       <div class="p-[0.9375rem] border border-[#7C7A7A] rounded-[0.3125rem] bg-[hsl(0,0%,95%,20%)] shadow-[0_8px_15.1px_hsl(0,1%,25%,10%)] flex justify-between items-center">
         <div>
           <div class="lectureClass | text-[#F722B7] text-[0.5rem] font-bold bg-[hsl(318,93%,55%,14%)] border border-secondary py-[0.3125rem] px-[0.6875rem] rounded-full w-max mb-2">
