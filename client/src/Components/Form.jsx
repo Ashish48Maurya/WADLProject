@@ -52,7 +52,6 @@
 //         });
 //     };
 
-
 //     useEffect(() => {
 //         fetchFacultys();
 //     }, [])
@@ -101,7 +100,6 @@
 //             <button ref={ref} type="button" className="btn btn-primary" style={{ "display": "none" }} data-bs-toggle="modal" data-bs-target="#exampleModal">
 //                 Launch demo modal
 //             </button>
-
 
 //             <div className='container col-12 col-sm-10 col-md-8 col-lg-8'>
 //                 <div className="row mb-3">
@@ -155,8 +153,6 @@
 //                 <button type="submit" onClick={open} className="btn btn-primary">Submit</button>
 //             </div>
 
-
-
 //             <div className="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 //                 <div className="modal-dialog modal-dialog-scrollable">
 //                     <div className="modal-content">
@@ -197,7 +193,7 @@
 //                 color:black;
 //                 font-weight:bold;
 //                 text-align:center;
-//                 border-radius: 50%; 
+//                 border-radius: 50%;
 //                 background-color: orange;
 //                 margin-right: 20px;
 //                 line-height: 50px;
@@ -250,258 +246,285 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export default function Form() {
-    const { backend_api, token } = useAuth();
-    const navigate = useNavigate();
-    const [faculty, setFaculty] = useState([]);
-    const [selectedEmails, setSelectedEmails] = useState([]);
-    const [eventType, setEventType] = useState("");
-    const [eventName, setEventName] = useState("");
-    const [teamSize, setTeamSize] = useState("");
-    const [noOfTeams, setNoOfTeams] = useState("");
-    const [outSiders, setOutSiders] = useState("");
-    const [supervisor, setSupervisor] = useState("");
-    const [file, setFile] = useState("");
-    const ref = useRef(null);
-    const open = () => {
-        ref.current.click();
-    };
+  const { backend_api, token } = useAuth();
+  const navigate = useNavigate();
+  const [faculty, setFaculty] = useState([]);
+  const [selectedEmails, setSelectedEmails] = useState([]);
+  const [eventType, setEventType] = useState("");
+  const [eventName, setEventName] = useState("");
+  const [teamSize, setTeamSize] = useState("");
+  const [noOfTeams, setNoOfTeams] = useState("");
+  const [outSiders, setOutSiders] = useState("");
+  const [supervisor, setSupervisor] = useState("");
+  const [file, setFile] = useState("");
+  const ref = useRef(null);
+  const open = () => {
+    ref.current.click();
+  };
 
-    const fetchFacultys = async () => {
-        try {
-            const res = await fetch(`${backend_api}/teachers`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer  ${token}`,
-                },
-            });
-            if (res.ok) {
-                const data = await res.json();
-                console.log("DATA: ", data)
-                setFaculty(data.data);
-            } else {
-                console.error("Failed to fetch assignments:", res.statusText);
-            }
-        } catch (error) {
-            console.error("Error fetching assignments:", error);
-        }
-    };
+  const fetchFacultys = async () => {
+    try {
+      const res = await fetch(`${backend_api}/teachers`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer  ${token}`,
+        },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        console.log("DATA: ", data);
+        setFaculty(data.data);
+      } else {
+        console.error("Failed to fetch assignments:", res.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching assignments:", error);
+    }
+  };
 
-    const handleCheckboxChange = (email) => {
-        setSelectedEmails((prevEmails) => {
-            if (prevEmails.includes(email)) {
-                return prevEmails.filter((e) => e !== email);
-            } else {
-                return [...prevEmails, email];
-            }
-        });
-    };
+  const handleCheckboxChange = (email) => {
+    setSelectedEmails((prevEmails) => {
+      if (prevEmails.includes(email)) {
+        return prevEmails.filter((e) => e !== email);
+      } else {
+        return [...prevEmails, email];
+      }
+    });
+  };
 
-    useEffect(() => {
-        fetchFacultys();
-    }, []);
+  useEffect(() => {
+    fetchFacultys();
+  }, []);
 
-    const handleSubmit = async (e) => {
-        // e.preventDefault();
-        if (!eventType || !eventName || !teamSize || !noOfTeams || !supervisor) {
-            return toast.error("All Fields Are Required!!!");
-        }
+  const handleSubmit = async (e) => {
+    // e.preventDefault();
+    if (!eventType || !eventName || !teamSize || !noOfTeams || !supervisor) {
+      return toast.error("All Fields Are Required!!!");
+    }
 
-        const formData = new FormData();
-        formData.append("eventType", eventType);
-        formData.append("eventName", eventName);
-        formData.append("teamSize", teamSize);
-        formData.append("noOfTeams", noOfTeams);
-        formData.append("outSiders", outSiders);
-        formData.append("supervisor", supervisor);
-        formData.append("file", file);
-        formData.append("permissionFrom", selectedEmails);
+    const formData = new FormData();
+    formData.append("eventType", eventType);
+    formData.append("eventName", eventName);
+    formData.append("teamSize", teamSize);
+    formData.append("noOfTeams", noOfTeams);
+    formData.append("outSiders", outSiders);
+    formData.append("supervisor", supervisor);
+    formData.append("file", file);
+    formData.append("permissionFrom", selectedEmails);
 
-        try {
-            const response = await fetch(`${backend_api}/permission`, {
-                method: "post",
-                headers: {
-                    Authorization: `Bearer  ${token}`,
-                },
-                body: formData,
-            });
+    try {
+      const response = await fetch(`${backend_api}/permission`, {
+        method: "post",
+        headers: {
+          Authorization: `Bearer  ${token}`,
+        },
+        body: formData,
+      });
 
-            if (response.status === 200) {
-                const res_data = await response.json();
-                console.log("response from server ", res_data);
-                navigate("/seeAllForms");
-                toast.success("Successfully Registered!!!");
-            } else {
-                toast.error("Registeration Failed!!!");
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
+      if (response.status === 200) {
+        const res_data = await response.json();
+        console.log("response from server ", res_data);
+        navigate("/seeAllForms");
+        toast.success("Successfully Registered!!!");
+      } else {
+        toast.error("Registeration Failed!!!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    return (
-        <>
-            <button
-                ref={ref}
+  return (
+    <>
+      <button
+        ref={ref}
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        style={{ display: "none" }}
+      >
+        Launch demo modal
+      </button>
+
+      <div className="max-w-md mx-auto p-4 pt-6 pb-8 mb-4 bg-white rounded shadow-md">
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <input
+              type="text"
+              placeholder="Enter EventType"
+              value={eventType}
+              onChange={(e) => {
+                setEventType(e.target.value);
+              }}
+              name="email"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+            />
+          </div>
+          <div className="w-full md:w-1/2 px-3">
+            <input
+              type="text"
+              value={eventName}
+              onChange={(e) => {
+                setEventName(e.target.value);
+              }}
+              placeholder="Enter EventName"
+              name="pswd"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+            />
+          </div>
+        </div>
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <input
+              type="text"
+              value={noOfTeams}
+              onChange={(e) => {
+                setNoOfTeams(e.target.value);
+              }}
+              placeholder="Enter Total Number of Teams"
+              name="pswd"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+            />
+          </div>
+        </div>
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(event) => setFile(event.target.files[0])}
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+            />
+          </div>
+          <div className="w-full md:w-1/2 px-3">
+            <input
+              type="text"
+              value={supervisor}
+              onChange={(e) => {
+                setSupervisor(e.target.value);
+              }}
+              placeholder="Enter Supervisor Name"
+              name="pswd"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+            />
+          </div>
+        </div>
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <div className="flex items-center mb-4">
+              <label htmlFor="department1" className="mr-4">
+                OutSiders:
+              </label>
+              <select
+                id="department1"
+                required
+                value={outSiders}
+                onChange={(e) => {
+                  setOutSiders(e.target.value);
+                }}
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 roundedpy-3 px-4 leading-tight focus:outline-none focus:bg-white"
+              >
+                <option value="">Choose...</option>
+                <option value="Allowed">Allowed</option>
+                <option value="Not-Allowed">Not-Allowed</option>
+              </select>
+            </div>
+          </div>
+          <div className="w-full md:w-1/2 px-3">
+            <div className="flex items-center mb-4">
+              <label htmlFor="department1" className="mr-4">
+                TeamSize:
+              </label>
+              <select
+                id="department1"
+                required
+                value={teamSize}
+                onChange={(e) => {
+                  setTeamSize(e.target.value);
+                }}
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3px-4 leading-tight focus:outline-none focus:bg-white"
+              >
+                <option value="">Choose...</option>
+                <option value="Quad">1-4</option>
+                <option value="Triple">1-3</option>
+                <option value="Duo">1-2</option>
+                <option value="Solo">1</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button
+          type="submit"
+          onClick={open}
+          className="bg-blue-500 hover:bg-bleu-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Submit
+        </button>
+      </div>
+
+      <div
+        className="modal fade "
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5
+                className="modal-title"
+                style={{ color: "orangered" }}
+                id="exampleModalLabel"
+              >
+                Send To:{" "}
+              </h5>
+              <button
                 type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                style={{ "display": "none" }}
-            >
-                Launch demo modal
-            </button>
-
-            <div className="max-w-md mx-auto p-4 pt-6 pb-8 mb-4 bg-white rounded shadow-md">
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <input
-                            type="text"
-                            placeholder="Enter EventType"
-                            value={eventType}
-                            onChange={(e) => {
-                                setEventType(e.target.value);
-                            }}
-                            name="email"
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                        />
-                    </div>
-                    <div className="w-full md:w-1/2 px-3">
-                        <input
-                            type="text"
-                            value={eventName}
-                            onChange={(e) => {
-                                setEventName(e.target.value);
-                            }}
-                            placeholder="Enter EventName"
-                            name="pswd"
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                        />
-                    </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <input
-                            type="text"
-                            value={noOfTeams}
-                            onChange={(e) => {
-                                setNoOfTeams(e.target.value);
-                            }}
-                            placeholder="Enter Total Number of Teams"
-                            name="pswd"
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                        />
-                    </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(event) => setFile(event.target.files[0])}
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                        />
-                    </div>
-                    <div className="w-full md:w-1/2 px-3">
-                        <input
-                            type="text"
-                            value={supervisor}
-                            onChange={(e) => {
-                                setSupervisor(e.target.value);
-                            }}
-                            placeholder="Enter Supervisor Name"
-                            name="pswd"
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                        />
-                    </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <div className="flex items-center mb-4">
-                            <label htmlFor="department1" className="mr-4">
-                                OutSiders:
-                            </label>
-                            <select
-                                id="department1"
-                                required
-                                value={outSiders}
-                                onChange={(e) => {
-                                    setOutSiders(e.target.value);
-                                }}
-                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 roundedpy-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                            >
-                                <option value="">Choose...</option>
-                                <option value="Allowed">Allowed</option>
-                                <option value="Not-Allowed">Not-Allowed</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="w-full md:w-1/2 px-3">
-                        <div className="flex items-center mb-4">
-                            <label htmlFor="department1" className="mr-4">
-                                TeamSize:
-                            </label>
-                            <select
-                                id="department1"
-                                required
-                                value={teamSize}
-                                onChange={(e) => {
-                                    setTeamSize(e.target.value);
-                                }}
-                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3px-4 leading-tight focus:outline-none focus:bg-white"
-                            >
-                                <option value="">Choose...</option>
-                                <option value="Quad">1-4</option>
-                                <option value="Triple">1-3</option>
-                                <option value="Duo">1-2</option>
-                                <option value="Solo">1</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <button
-                    type="submit"
-                    onClick={open}
-                    className="bg-blue-500 hover:bg-bleu-700 text-white font-bold py-2 px-4 rounded"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              {faculty.map((user) => (
+                <div
+                  key={user._id}
+                  className="d-flex justify-content-between m-2"
                 >
-                    Submit
-                </button>
-            </div>
-
-            <div className="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-scrollable">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" style={{ "color": "orangered" }} id="exampleModalLabel">Send To: </h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            {faculty.map((user) => (
-                                <div key={user._id} className="d-flex justify-content-between m-2">
-                                    <span className="avatar-text">{user.fullname.charAt(0)}</span>
-                                    <div style={{ flex: 1 }}>
-                                        <div style={{ marginBottom: "5px" }}>{user.fullname}</div>
-                                        <div>{user.department}</div>
-                                    </div>
-                                    <div className="my-auto">
-                                        <div className="my-auto form-check custom-checkbox">
-                                            <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                onChange={() => handleCheckboxChange(user.email)}
-                                                checked={selectedEmails.includes(user.email)}
-                                            />
-                                            <label className="form-check-label" htmlFor={`flexCheckChecked-${user._id}`}></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                            <div className='text-center'><button className='btn btn-primary mt-2' onClick={handleSubmit}>Send</button></div>
-                        </div>
+                  <span className="avatar-text">{user.fullname.charAt(0)}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ marginBottom: "5px" }}>{user.fullname}</div>
+                    <div>{user.department}</div>
+                  </div>
+                  <div className="my-auto">
+                    <div className="my-auto form-check custom-checkbox">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        onChange={() => handleCheckboxChange(user.email)}
+                        checked={selectedEmails.includes(user.email)}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor={`flexCheckChecked-${user._id}`}
+                      ></label>
                     </div>
+                  </div>
                 </div>
+              ))}
+              <div className="text-center">
+                <button className="btn btn-primary mt-2" onClick={handleSubmit}>
+                  Send
+                </button>
+              </div>
             </div>
-            <style>{`
+          </div>
+        </div>
+      </div>
+      <style>{`
             .avatar-text {
                                  width: 50px;
                                  height: 50px;
@@ -514,6 +537,6 @@ export default function Form() {
                                  line-height: 50px;
                                }
             `}</style>
-        </>
-    );
+    </>
+  );
 }
