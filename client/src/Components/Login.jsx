@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../Components/Store/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function Login() {
@@ -54,7 +54,7 @@ export default function Login() {
     <section className="h-screen">
       <div className="container h-full px-6 py-24">
         <div className="flex h-full flex-wrap items-center justify-center lg:justify-between">
-          <div className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
+          <div className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12 hidden md:block">
             <img
               src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
               className="w-full"
@@ -93,7 +93,7 @@ export default function Login() {
                             Email Address
                           </label>
                         </div>
-                        <div className="relative">
+                        <div className="relative top-2">
                           <input
                             autoComplete="off"
                             id="password"
@@ -111,7 +111,7 @@ export default function Login() {
                             Password
                           </label>
                         </div>
-                        <div className="relative">
+                        <div className="relative top-2">
                           <button
                             type="submit"
                             className="bg-blue-500 text-white rounded-md px-2 py-1"
@@ -120,6 +120,14 @@ export default function Login() {
                           </button>
                         </div>
                       </div>
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500 capitalize text-center w-full">
+                        Don&apos;t have any account yet?{" "}
+                        <Link className="text-blue-700" to="/register">
+                          Sign Up
+                        </Link>
+                      </p>
                     </div>
                   </div>
                 </div>
