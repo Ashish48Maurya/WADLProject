@@ -36,6 +36,17 @@ const permissionSchema = new Schema({
         type:String,
         required:true,
     },
+    startTime:{
+        type:Date,
+        required:true,
+    },
+    endTime:{
+        type:Date,
+        required:true,
+    },
+    isAllDay:{
+        type:Boolean,
+    },
     supervisor:{
         type:String,
         required:true,

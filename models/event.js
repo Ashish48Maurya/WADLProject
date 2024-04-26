@@ -13,6 +13,9 @@ const eventSchema = new Schema({
     EndTime:{
         type:Date,
         required:true,
+    },
+    IsAllDay:{
+        type:Boolean,
     }
 });
 

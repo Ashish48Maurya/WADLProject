@@ -2,7 +2,7 @@ const User = require('../models/user');
 const Event = require('../models/event');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
+const Permission = require('../models/permissionLetter')
 
 const register = async (req, res) => {
     const { fullname, department, password, email, userType } = req.body;
@@ -86,8 +86,8 @@ const teachers = async (req, res) => {
 }
 
 const event = async (req, res) => {
-    const { StartTime, EndTime, Subject } = req.body;
-    if (!StartTime || !EndTime || !Subject) {
+    const { StartTime, EndTime, Subject, IsAllDay } = req.body;
+    if (!StartTime || !EndTime || !Subject || !IsAllDay) {
         console.log('Please add all the fields');
         return res.status(422).json({ error: "Please add all the fields" });
     }
@@ -95,15 +95,68 @@ const event = async (req, res) => {
         const event = new Event({
             StartTime,
             EndTime,
-            Subject
+            Subject,
+            IsAllDay,
         });
 
         await event.save();
+        return res.status(200).json({ event });
     }
     catch (err) {
-        return res.status(500).json({ error: "Interval Server Error" });
+        return res.status(500).json({ error: "Interval Server Error " + err });
     }
 }
 
+const eventsList = async (req, res) => {
+    try {
+        const student = await User.findById(req.userID);
+        const ids = student.hosted;
+        const data = ids.map(permission => permission._id);
+        const allEvent = await Permission.find({_id:data});
+        return res.status(200).json({ allEvent });
+    } catch (err) {
+        return res.status(500).json({ error: "Internal Server Error "+err });
+    }
+}
 
-module.exports = { register, login, teachers,event };
+const permit = async (req, res) => {
+    const permissionId = req.params.id;
+    const { email } = req.user;
+
+    try {
+        const updatedPermission = await Permission.findById(permissionId);
+        const permissionFrom = updatedPermission.permissionFrom;
+
+        const userEmail = permissionFrom.find(item => item.email === email);
+        if (userEmail) {
+            userEmail.permitted = true;
+            await updatedPermission.save();
+            const allPermitted = permissionFrom.every(email => email.permitted === true);
+            const {eventName,eventType,startTime,endTime,isAllDay} = updatedPermission;
+            let event;
+            if (allPermitted) {
+                event = new Event({
+                    Subject: eventName + ' ' + eventType,
+                    EndTime : endTime,
+                    StartTime: startTime,
+                    IsAllDay:isAllDay,
+                });
+                await event.save();
+            }
+            return res.status(200).json({ message: 'Permission granted for email: ' + email , event });
+        } else {
+            return res.status(404).json({ error: 'Email not found in permissionFrom array' });
+        }
+
+    } catch (err) {
+        return res.status(500).json({ error: 'Internal Server Error ' + err });
+    }
+}
+
+// const formattedEvent = {
+//     Subject: response.Subject,
+//     StartTime: new Date(response.StartTime),
+//     EndTime: new Date(response.EndTime),
+//     IsAllDay: response.IsAllDay
+//   };
+module.exports = { register, login, teachers, event, eventsList, permit };

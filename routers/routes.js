@@ -22,12 +22,13 @@ const transporter = nodemailer.createTransport({
 router.post('/register', service.register);
 router.post('/login', service.login)
 router.post('/event', service.event)
+router.get('/eventList',authMiddleware(), service.eventsList)
+router.get('/permissions/:id', authMiddleware(), service.permit);
 
-router.post('/permission', authMiddleware(), upload.single('file'), async (req, res) => {
-    const { eventType, eventName, teamSize, noOfTeams, outSiders, supervisor, permissionFrom } = req.body;
+router.post('/permission',authMiddleware(), upload.single('file'), async (req, res) => {
+    const { eventType, eventName, teamSize, noOfTeams, outSiders, supervisor, permissionFrom, startTime, endTime, isAllDay } = req.body;
     const userId = req.userID;
     const Student = await User.findById(userId);
-
     const { originalname, path } = req.file;
     const parts = originalname.split('.');
     const ext = parts[parts.length - 1];
@@ -44,6 +45,9 @@ router.post('/permission', authMiddleware(), upload.single('file'), async (req, 
             noOfTeams,
             outSiders,
             supervisor,
+            startTime,
+            endTime,
+            isAllDay,
             permissionFrom: permissionFromArray.map(email => ({ email, permitted: false }))
         });
 
@@ -64,6 +68,7 @@ router.post('/permission', authMiddleware(), upload.single('file'), async (req, 
             title: "Permission For Conducting Event",
             subject: `http://localhost:3000/event/${event._id}`
         });
+
         await event.save();
         Student.hosted.push(event);
         await Student.save();
