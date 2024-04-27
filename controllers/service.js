@@ -54,7 +54,6 @@ const login = async (req, res) => {
         if (!user) {
             return res.status(422).json({ error: "Invalid username or password" });
         }
-
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (isMatch) {
@@ -119,6 +118,16 @@ const eventsList = async (req, res) => {
     }
 }
 
+const eventListForCalender = async(req,res)=>{
+    try{
+        const event = await Event.find({});
+        return res.status(200).json({data : event});
+    }
+    catch(err){
+        return res.status(500).json({error:"Internal Server Error "+err})
+    }
+}
+
 const permit = async (req, res) => {
     const permissionId = req.params.id;
     const { email } = req.user;
@@ -159,4 +168,4 @@ const permit = async (req, res) => {
 //     EndTime: new Date(response.EndTime),
 //     IsAllDay: response.IsAllDay
 //   };
-module.exports = { register, login, teachers, event, eventsList, permit };
+module.exports = { register, login, teachers, event, eventsList, permit,eventListForCalender };

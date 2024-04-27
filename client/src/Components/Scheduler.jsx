@@ -75,7 +75,8 @@
 
 
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "./Store/auth";
 import {
   ScheduleComponent,
   Day,
@@ -92,6 +93,7 @@ import { registerLicense } from "@syncfusion/ej2-base";
 registerLicense(
   "Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCe0x0WmFZfVpgcl9EYVZQRWYuP1ZhSXxXdkFhXH9YcnVUR2VYVEc="
 );
+
 
 const data = [
   {
@@ -118,12 +120,39 @@ const data = [
 ];
 
 const Scheduler = () => {
-  const eventSettings = { dataSource: data };
+  const [event,setEvent] = useState([]);
+  const eventSettings = { dataSource: event };
+  const { backend_api, token } = useAuth();
+  const events = async () => {
+    try {
+      const res = await fetch(`${backend_api}/schedulerEvent`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        console.log("DATA: ", data.data);
+        setEvent(data.data);
+      } else {
+        console.error("Failed to fetch assignments:", res.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching assignments:", error);
+    }
+  };
+
+  useEffect(()=>{
+    events();
+  },[])
+
 
   const onPopupOpen = (args) => {
-    if (args.type === 'DeleteAlert' || args.type === 'DeleteSeriesAlert' || args.type === 'Editor') {
+    if (args.type === 'DeleteAlert' || args.type === 'DeleteSeriesAlert' || args.type === 'Editor'|| args.type === 'AddTitle') {
       args.cancel = true;
     }
+    // args.cancel = true;
   };
 
   return (

@@ -21,6 +21,7 @@ const transporter = nodemailer.createTransport({
 
 router.post('/register', service.register);
 router.post('/login', service.login)
+router.get('/schedulerEvent', service.eventListForCalender)
 router.post('/event', service.event)
 router.get('/eventList',authMiddleware(), service.eventsList)
 router.get('/permissions/:id', authMiddleware(), service.permit);
