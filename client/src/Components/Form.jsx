@@ -258,8 +258,8 @@ export default function Form() {
   const [supervisor, setSupervisor] = useState("");
   const [file, setFile] = useState("");
   const [isAllDay, setIsAllDay] = useState(false);
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   const ref = useRef(null);
   const open = () => {
     ref.current.click();
@@ -357,126 +357,154 @@ export default function Form() {
         Launch demo modal
       </button>
 
-      <div className="flex items-center justify-center h-screen ">
-        <div className="container max-w-md p-4 bg-slate-50 rounded border-2 border-black">
-          <div className="mb-6">
-            <input
-              type="text"
-              placeholder="Event type"
-              value={eventType}
-              onChange={(e) => setEventType(e.target.value)}
-              name="email"
-              className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
-            />
-          </div>
-          <div className="mb-6">
-            <input
-              type="text"
-              value={eventName}
-              onChange={(e) => setEventName(e.target.value)}
-              placeholder="Event name"
-              name="pswd"
-              className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
-            />
-          </div>
-          <div className="flex mb-6">
-            <div className="w-full md:w-1/2 mr-3">
+      <div className="flex min-h-[80svh] items-center justify-center">
+        <div className="relative max-w-md rounded-lg bg-gradient-to-tr from-pink-300 to-blue-300 p-0.5 shadow-lg">
+          <div className="container max-w-md p-4 bg-slate-50 rounded ">
+            <div className="mb-6">
               <input
                 type="text"
-                value={noOfTeams}
-                onChange={(e) => setNoOfTeams(e.target.value)}
-                placeholder="Total Number of Teams"
+                placeholder="Event type"
+                value={eventType}
+                onChange={(e) => setEventType(e.target.value)}
+                name="email"
+                className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
+              />
+            </div>
+            <div className="mb-6">
+              <input
+                type="text"
+                value={eventName}
+                onChange={(e) => setEventName(e.target.value)}
+                placeholder="Event name"
                 name="pswd"
                 className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
               />
             </div>
-            <div className="w-full md:w-1/2 ml-3">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(event) => setFile(event.target.files[0])}
-                className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
-              />
+            <div className="flex mb-6">
+              <div className="w-full md:w-1/2 mr-3">
+                <input
+                  type="text"
+                  value={noOfTeams}
+                  onChange={(e) => setNoOfTeams(e.target.value)}
+                  placeholder="Total Number of Teams"
+                  name="pswd"
+                  className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
+                />
+              </div>
+              <div className="w-full md:w-1/2 ml-3">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(event) => setFile(event.target.files[0])}
+                  className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
+                />
+              </div>
             </div>
-          </div>
-          <div className="flex mb-6">
-            <div className="w-full md:w-1/2 mr-3">
-              <input
-                type="text"
-                value={supervisor}
-                onChange={(e) => setSupervisor(e.target.value)}
-                placeholder="Supervisor Name"
-                name="pswd"
-                className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
-              />
+            <div className="flex mb-6">
+              <div className="w-full md:w-1/2 mr-3">
+                <input
+                  type="text"
+                  value={supervisor}
+                  onChange={(e) => setSupervisor(e.target.value)}
+                  placeholder="Supervisor Name"
+                  name="pswd"
+                  className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
+                />
+              </div>
+              <div className="w-full md:w-1/2 ml-3">
+                <select
+                  id="department1"
+                  required
+                  value={outSiders}
+                  onChange={(e) => setOutSiders(e.target.value)}
+                  className=" peer placeholder-transparent h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 rounded-md bg-slate-50"
+                >
+                  <option value="" className="bg-slate-50">
+                    OutSiders
+                  </option>
+                  <option value="Allowed">Allowed</option>
+                  <option value="Not-Allowed">Not-Allowed</option>
+                </select>
+              </div>
             </div>
-            <div className="w-full md:w-1/2 ml-3">
-              <select
-                id="department1"
-                required
-                value={outSiders}
-                onChange={(e) => setOutSiders(e.target.value)}
-                className=" peer placeholder-transparent h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 rounded-md bg-slate-50"
-              >
-                <option value="" className="bg-slate-50">
-                  OutSiders
-                </option>
-                <option value="Allowed">Allowed</option>
-                <option value="Not-Allowed">Not-Allowed</option>
-              </select>
+
+            <div className="flex mb-6">
+              <div className="w-full md:w-1/2">
+                <select
+                  className=" peer placeholder-transparent h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 rounded-md bg-slate-50"
+                  id="department1"
+                  required
+                  value={teamSize}
+                  onChange={(e) => {
+                    setTeamSize(e.target.value);
+                  }}
+                >
+                  <option value="" className="bg-slate-50">
+                    TeamSize
+                  </option>
+                  <option value="Quad">1-4</option>
+                  <option value="Triple">1-3</option>
+                  <option value="Duo">1-2</option>
+                  <option value="Solo">1</option>
+                </select>
+              </div>
+              <div className="w-full md:w-1/2 ml-3">
+                <select
+                  className=" peer placeholder-transparent h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 rounded-md bg-slate-50"
+                  id="department1"
+                  required
+                  value={isAllDay}
+                  onChange={(e) => {
+                    setIsAllDay(e.target.value);
+                  }}
+                >
+                  <option value="" className="bg-slate-50">
+                    IsAllDay
+                  </option>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div className="flex mb-6">
-            <div className="w-full md:w-1/2 ml-3">
-              <select className=" peer placeholder-transparent h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 rounded-md bg-slate-50" id="department1"  required value={teamSize} onChange={(e) => { setTeamSize(e.target.value) }}>
-                <option value="" className="bg-slate-50">
-                  TeamSize
-                </option>
-                <option value="Quad">1-4</option>
-                <option value="Triple">1-3</option>
-                <option value="Duo">1-2</option>
-                <option value="Solo">1</option>
-              </select>
+            <div className="flex mb-3 justify-evenly ">
+              <span>
+                <label className="text-gray-900 text-sm font-medium">
+                  Start Time
+                </label>
+                <input
+                  type="datetime-local"
+                  name=""
+                  id=""
+                  className="border-b-2 border-blue-300 "
+                  onChange={(e) => {
+                    setStartTime(e.target.value);
+                  }}
+                />
+              </span>
+              <span>
+                <label className="text-gray-900 text-sm font-medium">
+                  End Time
+                </label>
+                <input
+                  type="datetime-local"
+                  name=""
+                  id=""
+                  className="border-b-2 border-blue-300"
+                  onChange={(e) => {
+                    setEndTime(e.target.value);
+                  }}
+                />
+              </span>
             </div>
-            <div className="w-full md:w-1/2 ml-3">
-              <select className=" peer placeholder-transparent h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 rounded-md bg-slate-50" id="department1"  required value={isAllDay} onChange={(e) => { setIsAllDay(e.target.value) }}>
-                <option value="" className="bg-slate-50">
-                  IsAllDay
-                </option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-              </select>
-            </div>
-          </div>
-
-
-
-
-
-          <div className="flex mb-3">
-            <span><label
-              className="text-gray-900 text-sm font-medium"
+            <button
+              type="submit"
+              onClick={open}
+              className="calendarJoinButton px-[1.375rem] py-[0.375rem] rounded-full border border-[#9F9F9F] text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none m-auto justify-center w-full flex "
             >
-              Start Time
-            </label>
-              <input type="datetime-local" name="" id="" className="border-b-2 border-blue-300" onChange={(e) => { setStartTime(e.target.value) }} /></span>
-            <span>
-              <label
-                className="text-gray-900 text-sm font-medium"
-              >
-                End Time
-              </label>
-              <input type="datetime-local" name="" id="" className="border-b-2 border-blue-300" onChange={(e) => { setEndTime(e.target.value) }} />
-            </span>
+              Submit
+            </button>
           </div>
-          <button
-            type="submit"
-            onClick={open}
-            className="calendarJoinButton px-[1.375rem] py-[0.375rem] rounded-full border border-[#9F9F9F] text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none m-auto justify-center w-full flex "
-          >
-            Submit
-          </button>
         </div>
       </div>
 
