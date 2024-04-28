@@ -11,6 +11,7 @@ import EventHistory from "./Components/EventHistory";
 import PrivateRoute from "../src/Components/Store/protectedRoute";
 import Form from "./Components/Form";
 import GrantPermissionPage from "./Components/grantPermission";
+import NotFound from "./Components/common/NotFound";
 
 function App() {
   return (
@@ -25,12 +26,9 @@ function App() {
           <Route exact path="schedule" element={<Scheduler />} />
           <Route exact path="seeAllForms" element={<EventHistory />} />
           <Route exact path="form" element={<Form />} />
-          <Route
-            exact
-            path="event/:id"
-            element={<GrantPermissionPage />}
-          />
+          <Route exact path="event/:id" element={<GrantPermissionPage />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <ToastContainer />

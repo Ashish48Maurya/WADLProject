@@ -17,7 +17,7 @@ export default function Home() {
         >
           <h1 className="mb-2 text-6xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-8xl">
             <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
-              Blah Blah{" "}
+              EventEase{" "}
             </span>{" "}
           </h1>
 
@@ -33,12 +33,11 @@ export default function Home() {
             </div>
           </h2>
           <p className="mt-6 text-center text-lg leading-6 text-gray-600 ">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Perferendis ratione doloremque ad officia fugiat sapiente porro eos
-            ea. Facere corporis harum ducimus soluta error? Accusamus ex
-            molestiae illum in reprehenderit.{" "}
-            <span className="cursor-wait opacity-70">Vanilla CSS</span> for easy
-            integration.
+            Effortlessly manage your events with our app. Schedule, organize,
+            and seek permissions from teachers seamlessly. Simplify event
+            planning and coordination, ensuring smooth communication and
+            collaboration.{" "}
+            <span className="cursor-wait opacity-70">Get started today!</span>
           </p>
         </div>
       </div>
