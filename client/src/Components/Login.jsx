@@ -70,7 +70,7 @@ export default function Login() {
                   <div className="max-w-md mx-auto">
                     <div>
                       <h1 className="text-2xl font-semibold">
-                        Login Form with Floating Labels
+                        Login
                       </h1>
                     </div>
                     <div className="divide-y divide-gray-200">

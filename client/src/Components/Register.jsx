@@ -66,7 +66,7 @@ export default function Register() {
                     <div className="max-w-md mx-auto">
                       <div>
                         <h1 className="text-2xl font-semibold">
-                          Registration Form with Floating Labels
+                          Register
                         </h1>
                       </div>
                       <div className="divide-y divide-gray-200">
