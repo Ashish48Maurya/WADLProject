@@ -257,6 +257,7 @@ export default function Form() {
   const [outSiders, setOutSiders] = useState("");
   const [supervisor, setSupervisor] = useState("");
   const [file, setFile] = useState("");
+  const [isAllDay, setIsAllDay] = useState(false);
   const ref = useRef(null);
   const open = () => {
     ref.current.click();
@@ -291,6 +292,10 @@ export default function Form() {
         return [...prevEmails, email];
       }
     });
+  };
+
+  const handleIsAllDayChange = () => {
+    setIsAllDay(!isAllDay);
   };
 
   useEffect(() => {
@@ -348,120 +353,98 @@ export default function Form() {
         Launch demo modal
       </button>
 
-      <div className="max-w-md mx-auto p-4 pt-6 pb-8 mb-4 bg-white rounded shadow-md">
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <div className="flex items-center justify-center h-screen ">
+        <div className="container max-w-md p-4 bg-slate-50 rounded border-2 border-black">
+          <div className="mb-6">
             <input
               type="text"
-              placeholder="Enter EventType"
+              placeholder="Event type"
               value={eventType}
-              onChange={(e) => {
-                setEventType(e.target.value);
-              }}
+              onChange={(e) => setEventType(e.target.value)}
               name="email"
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+              className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
             />
           </div>
-          <div className="w-full md:w-1/2 px-3">
+          <div className="mb-6">
             <input
               type="text"
               value={eventName}
-              onChange={(e) => {
-                setEventName(e.target.value);
-              }}
-              placeholder="Enter EventName"
+              onChange={(e) => setEventName(e.target.value)}
+              placeholder="Event name"
               name="pswd"
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+              className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
             />
           </div>
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <input
-              type="text"
-              value={noOfTeams}
-              onChange={(e) => {
-                setNoOfTeams(e.target.value);
-              }}
-              placeholder="Enter Total Number of Teams"
-              name="pswd"
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-            />
+          <div className="flex mb-6">
+            <div className="w-full md:w-1/2 mr-3">
+              <input
+                type="text"
+                value={noOfTeams}
+                onChange={(e) => setNoOfTeams(e.target.value)}
+                placeholder="Total Number of Teams"
+                name="pswd"
+                className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
+              />
+            </div>
+            <div className="w-full md:w-1/2 ml-3">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(event) => setFile(event.target.files[0])}
+                className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
+              />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(event) => setFile(event.target.files[0])}
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-            />
-          </div>
-          <div className="w-full md:w-1/2 px-3">
-            <input
-              type="text"
-              value={supervisor}
-              onChange={(e) => {
-                setSupervisor(e.target.value);
-              }}
-              placeholder="Enter Supervisor Name"
-              name="pswd"
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-            />
-          </div>
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <div className="flex items-center mb-4">
-              <label htmlFor="department1" className="mr-4">
-                OutSiders:
-              </label>
+          <div className="flex mb-6">
+            <div className="w-full md:w-1/2 mr-3">
+              <input
+                type="text"
+                value={supervisor}
+                onChange={(e) => setSupervisor(e.target.value)}
+                placeholder="Supervisor Name"
+                name="pswd"
+                className="peer h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 bg-slate-50"
+              />
+            </div>
+            <div className="w-full md:w-1/2 ml-3">
               <select
                 id="department1"
                 required
                 value={outSiders}
-                onChange={(e) => {
-                  setOutSiders(e.target.value);
-                }}
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 roundedpy-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                onChange={(e) => setOutSiders(e.target.value)}
+                className=" peer placeholder-transparent h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 rounded-md bg-slate-50"
               >
-                <option value="">Choose...</option>
+                <option value="" className="bg-slate-50">
+                  Choose...
+                </option>
                 <option value="Allowed">Allowed</option>
                 <option value="Not-Allowed">Not-Allowed</option>
               </select>
             </div>
           </div>
-          <div className="w-full md:w-1/2 px-3">
-            <div className="flex items-center mb-4">
-              <label htmlFor="department1" className="mr-4">
-                TeamSize:
-              </label>
-              <select
-                id="department1"
-                required
-                value={teamSize}
-                onChange={(e) => {
-                  setTeamSize(e.target.value);
-                }}
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3px-4 leading-tight focus:outline-none focus:bg-white"
-              >
-                <option value="">Choose...</option>
-                <option value="Quad">1-4</option>
-                <option value="Triple">1-3</option>
-                <option value="Duo">1-2</option>
-                <option value="Solo">1</option>
-              </select>
-            </div>
+          <div className="flex items-center mb-4">
+            <input
+              type="checkbox"
+              id="allDayCheckbox"
+              checked={isAllDay}
+              onChange={handleIsAllDayChange}
+              className="peer h-4 w-4 border-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 rounded-sm mr-2"
+            />
+            <label
+              htmlFor="allDayCheckbox"
+              className="text-gray-900 text-sm font-medium"
+            >
+              All Day
+            </label>
           </div>
+          <button
+            type="submit"
+            onClick={open}
+            className="calendarJoinButton px-[1.375rem] py-[0.375rem] rounded-full border border-[#9F9F9F] text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none m-auto justify-center w-full flex "
+          >
+            Submit
+          </button>
         </div>
-        <button
-          type="submit"
-          onClick={open}
-          className="bg-blue-500 hover:bg-bleu-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Submit
-        </button>
       </div>
 
       <div
