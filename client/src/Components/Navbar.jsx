@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-transparent bg-opacity-80">
-      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-center justify-between py-3">
           <div
             className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 text-sm md:text-xl font-bold flex items-center"
@@ -36,7 +36,7 @@ export default function Navbar() {
                 <li className="flex items-center">
                   <p className="mr-2 font-bold">{userData.fullname}</p>
                   <button
-                    className="calendarJoinButton | px-[1.375rem] py-[0.375rem] rounded-full border border-black text-sm font-medium text-[black] hover:text-white hover:border-none"
+                    className="calendarJoinButton | md:px-[1.375rem] md:py-[0.375rem] px-[1rem] py-[0.25rem] rounded-full border border-black text-xs font-medium text-[black] hover:text-white hover:border-none"
                     onClick={() => {
                       LogoutUser();
                       navigate("/login");
@@ -49,7 +49,7 @@ export default function Navbar() {
                 <>
                   <li>
                     <button
-                      className="calendarJoinButton | px-[1.375rem] py-[0.375rem] rounded-full border border-black text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none"
+                      className="calendarJoinButton | md:px-[1.375rem] md:py-[0.375rem] px-[1rem] py-[0.25rem] rounded-full border border-black text-xs font-medium text-[#6F6F6F] hover:text-white hover:border-none"
                       onClick={() => navigate("/login")}
                     >
                       SignIn
@@ -57,7 +57,7 @@ export default function Navbar() {
                   </li>
                   <li>
                     <button
-                      className="calendarJoinButton | px-[1.375rem] py-[0.375rem] rounded-full border border-black text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none"
+                      className="calendarJoinButton | md:px-[1.375rem] md:py-[0.375rem] px-[1rem] py-[0.25rem] rounded-full border border-black text-xs font-medium text-[#6F6F6F] hover:text-white hover:border-none"
                       onClick={() => navigate("/register")}
                     >
                       SignUp
@@ -66,7 +66,7 @@ export default function Navbar() {
                 </>
               )}
             </ul>
-            {isLoggedIn && userData.userType==='student' && <Menu />}
+            {isLoggedIn && userData.userType && <Menu />}
           </div>
         </div>
       </div>
