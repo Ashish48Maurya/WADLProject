@@ -23,10 +23,10 @@ router.post('/register', service.register);
 router.post('/login', service.login)
 router.get('/schedulerEvent', service.eventListForCalender)
 router.post('/event', service.event)
-router.get('/eventList',authMiddleware(), service.eventsList)
+router.get('/eventList', authMiddleware(), service.eventsList)
 router.get('/permissions/:id', authMiddleware(), service.permit);
 
-router.post('/permission',authMiddleware(), upload.single('file'), async (req, res) => {
+router.post('/permission', authMiddleware(), upload.single('file'), async (req, res) => {
     const { eventType, eventName, teamSize, noOfTeams, outSiders, supervisor, permissionFrom, startTime, endTime, isAllDay } = req.body;
     const userId = req.userID;
     const Student = await User.findById(userId);

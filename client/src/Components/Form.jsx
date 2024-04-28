@@ -136,18 +136,18 @@
 //                             </select>
 //                         </div>
 //                     </div>
-//                     <div className="col">
-//                         <div className="form-group flex">
-//                             <label htmlFor="department1">TeamSize:</label>
-//                             <select id="department1" className="form-select" required value={teamSize} onChange={(e) => { setTeamSize(e.target.value) }}>
-//                                 <option value="">Choose...</option>
-//                                 <option value="Quad">1-4</option>
-//                                 <option value="Triple">1-3</option>
-//                                 <option value="Duo">1-2</option>
-//                                 <option value="Solo">1</option>
-//                             </select>
-//                         </div>
-//                     </div>
+// <div className="col">
+//     <div className="form-group flex">
+//         <label htmlFor="department1">TeamSize:</label>
+//         <select id="department1" className="form-select" required value={teamSize} onChange={(e) => { setTeamSize(e.target.value) }}>
+//             <option value="">Choose...</option>
+//             <option value="Quad">1-4</option>
+//             <option value="Triple">1-3</option>
+//             <option value="Duo">1-2</option>
+//             <option value="Solo">1</option>
+//         </select>
+//     </div>
+// </div>
 
 //                 </div>
 //                 <button type="submit" onClick={open} className="btn btn-primary">Submit</button>
@@ -258,6 +258,8 @@ export default function Form() {
   const [supervisor, setSupervisor] = useState("");
   const [file, setFile] = useState("");
   const [isAllDay, setIsAllDay] = useState(false);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
   const ref = useRef(null);
   const open = () => {
     ref.current.click();
@@ -303,7 +305,7 @@ export default function Form() {
   }, []);
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     if (!eventType || !eventName || !teamSize || !noOfTeams || !supervisor) {
       return toast.error("All Fields Are Required!!!");
     }
@@ -315,6 +317,8 @@ export default function Form() {
     formData.append("noOfTeams", noOfTeams);
     formData.append("outSiders", outSiders);
     formData.append("supervisor", supervisor);
+    formData.append("startTime", startTime);
+    formData.append("endTime", endTime);
     formData.append("file", file);
     formData.append("permissionFrom", selectedEmails);
 
@@ -330,7 +334,7 @@ export default function Form() {
       if (response.status === 200) {
         const res_data = await response.json();
         console.log("response from server ", res_data);
-        navigate("/seeAllForms");
+        navigate("/private/seeAllForms");
         toast.success("Successfully Registered!!!");
       } else {
         toast.error("Registeration Failed!!!");
@@ -415,27 +419,56 @@ export default function Form() {
                 className=" peer placeholder-transparent h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 rounded-md bg-slate-50"
               >
                 <option value="" className="bg-slate-50">
-                  Choose...
+                  OutSiders
                 </option>
                 <option value="Allowed">Allowed</option>
                 <option value="Not-Allowed">Not-Allowed</option>
               </select>
             </div>
           </div>
-          <div className="flex items-center mb-4">
-            <input
-              type="checkbox"
-              id="allDayCheckbox"
-              checked={isAllDay}
-              onChange={handleIsAllDayChange}
-              className="peer h-4 w-4 border-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 rounded-sm mr-2"
-            />
-            <label
-              htmlFor="allDayCheckbox"
+
+          <div className="flex mb-6">
+            <div className="w-full md:w-1/2 ml-3">
+              <select className=" peer placeholder-transparent h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 rounded-md bg-slate-50" id="department1"  required value={teamSize} onChange={(e) => { setTeamSize(e.target.value) }}>
+                <option value="" className="bg-slate-50">
+                  TeamSize
+                </option>
+                <option value="Quad">1-4</option>
+                <option value="Triple">1-3</option>
+                <option value="Duo">1-2</option>
+                <option value="Solo">1</option>
+              </select>
+            </div>
+            <div className="w-full md:w-1/2 ml-3">
+              <select className=" peer placeholder-transparent h-10 w-full border-b-2 border-blue-300 text-gray-900 focus:outline-none focus:border-rose-600 rounded-md bg-slate-50" id="department1"  required value={isAllDay} onChange={(e) => { setIsAllDay(e.target.value) }}>
+                <option value="" className="bg-slate-50">
+                  IsAllDay
+                </option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+          </div>
+
+
+
+
+
+          <div className="flex mb-3">
+            <span><label
               className="text-gray-900 text-sm font-medium"
             >
-              All Day
+              Start Time
             </label>
+              <input type="datetime-local" name="" id="" className="border-b-2 border-blue-300" onChange={(e) => { setStartTime(e.target.value) }} /></span>
+            <span>
+              <label
+                className="text-gray-900 text-sm font-medium"
+              >
+                End Time
+              </label>
+              <input type="datetime-local" name="" id="" className="border-b-2 border-blue-300" onChange={(e) => { setEndTime(e.target.value) }} />
+            </span>
           </div>
           <button
             type="submit"
@@ -487,6 +520,7 @@ export default function Form() {
                       <input
                         className="form-check-input"
                         type="checkbox"
+                        style={{ border: "2px solid black" }}
                         onChange={() => handleCheckboxChange(user.email)}
                         checked={selectedEmails.includes(user.email)}
                       />
@@ -519,6 +553,7 @@ export default function Form() {
                                  margin-right: 20px;
                                  line-height: 50px;
                                }
+                            
             `}</style>
     </>
   );

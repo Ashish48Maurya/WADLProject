@@ -7,9 +7,9 @@ import Register from "./Components/Register";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Scheduler from "./Components/Scheduler";
-import Form from "./Components/Form";
 import EventHistory from "./Components/EventHistory";
 import PrivateRoute from '../src/Components/Store/protectedRoute'
+import Form from "./Components/Form";
 
 function App() {
   return (

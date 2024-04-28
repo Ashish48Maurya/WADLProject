@@ -33,9 +33,9 @@ export default function EventHistory() {
     <>
       {
         event.length !== 0 ? <>
-          <div class="lectureCard | grid hover:gap-[0.9375rem] grid-cols-[0_1fr] hover:grid-cols-[0.5rem_1fr] transition-[grid-template-columns]">
-            <div class="lectureCardActiveBar | bg-[#38f86e] rounded-full"></div>
-            {event.map((ele) => (
+          {event.map((ele) => (
+            <div class="mb-2 lectureCard | grid hover:gap-[0.9375rem] grid-cols-[0_1fr] hover:grid-cols-[0.5rem_1fr] transition-[grid-template-columns]" >
+              <div class="lectureCardActiveBar | bg-[#38f86e] rounded-full"></div>
               <div class="p-[0.9375rem] border border-[#7C7A7A] rounded-[0.3125rem] bg-[hsl(0,0%,95%,20%)] shadow-[0_8px_15.1px_hsl(0,1%,25%,10%)] flex justify-evenly items-center">
                 <div class="space-y-1 border-r-2 pr-3 my-auto">
                   <div class="text-sm leading-5 font-semibold">
@@ -83,8 +83,8 @@ export default function EventHistory() {
                   }
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </> : <> <div className='text-center text-violet-900 font-extrabold text-lg'>You Haven't Hosted Any Event Till Now</div></>
       }
     </>
