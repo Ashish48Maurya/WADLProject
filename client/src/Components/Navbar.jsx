@@ -66,7 +66,7 @@ export default function Navbar() {
                 </>
               )}
             </ul>
-            {isLoggedIn && userData.userType && <Menu />}
+            {isLoggedIn && userData.userType==='student' && <Menu />}
           </div>
         </div>
       </div>
