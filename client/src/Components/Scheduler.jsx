@@ -73,8 +73,6 @@
 
 // export default Scheduler;
 
-
-
 import React, { useEffect, useState } from "react";
 import { useAuth } from "./Store/auth";
 import {
@@ -93,7 +91,6 @@ import { registerLicense } from "@syncfusion/ej2-base";
 registerLicense(
   "Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCe0x0WmFZfVpgcl9EYVZQRWYuP1ZhSXxXdkFhXH9YcnVUR2VYVEc="
 );
-
 
 const data = [
   {
@@ -120,7 +117,7 @@ const data = [
 ];
 
 const Scheduler = () => {
-  const [event,setEvent] = useState([]);
+  const [event, setEvent] = useState([]);
   const eventSettings = { dataSource: event };
   const { backend_api, token } = useAuth();
   const events = async () => {
@@ -143,20 +140,24 @@ const Scheduler = () => {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     events();
-  },[])
-
+  }, []);
 
   const onPopupOpen = (args) => {
-    if (args.type === 'DeleteAlert' || args.type === 'DeleteSeriesAlert' || args.type === 'Editor'|| args.type === 'AddTitle') {
+    if (
+      args.type === "DeleteAlert" ||
+      args.type === "DeleteSeriesAlert" ||
+      args.type === "Editor" ||
+      args.type === "AddTitle"
+    ) {
       args.cancel = true;
     }
     // args.cancel = true;
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center min-h-[80svh] mx-2 ">
       <ScheduleComponent
         currentView="Month"
         height="550px"
