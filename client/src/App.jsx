@@ -8,8 +8,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Scheduler from "./Components/Scheduler";
 import EventHistory from "./Components/EventHistory";
-import PrivateRoute from '../src/Components/Store/protectedRoute'
+import PrivateRoute from "../src/Components/Store/protectedRoute";
 import Form from "./Components/Form";
+import GrantPermissionPage from "./Components/grantPermission";
 
 function App() {
   return (
@@ -24,6 +25,11 @@ function App() {
           <Route exact path="schedule" element={<Scheduler />} />
           <Route exact path="seeAllForms" element={<EventHistory />} />
           <Route exact path="form" element={<Form />} />
+          <Route
+            exact
+            path="grantPermission"
+            element={<GrantPermissionPage />}
+          />
         </Route>
       </Routes>
 
