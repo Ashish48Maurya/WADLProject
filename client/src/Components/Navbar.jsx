@@ -34,13 +34,27 @@ export default function Navbar() {
               <path d="M4 6h16M4 12h16m-7 6h7"></path>
             </svg>
           </button>
+          {
+            isLoggedIn && userData.userType === 'student' && <ul className="md:flex hidden">
+              <li className="md:mx-2"><Link to="/private/schedule" className=" text-neutral-900 font-seibold text-sm">
+                Schedule
+              </Link>
+              </li>
+              <li className="md:mx-2"><Link to="/private/seeAllForms" className=" text-neutral-900 font-seibold text-sm">
+                AppliedEvents
+              </Link></li>
+              <li className="md:mx-2"><Link to="/private/form" className=" text-neutral-900 font-seibold text-sm">
+                ApplyForEvent
+              </Link></li>
+            </ul>
+          }
           <div className="hidden lg:block">
             <ul className="flex space-x-4">
               {isLoggedIn ? (
                 <li className="flex items-center">
                   <p className="mr-2 font-bold">{userData.fullname}</p>
                   <button
-                    className="calendarJoinButton | px-[1.375rem] py-[0.375rem] rounded-full border border-[#9F9F9F] text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none"
+                    className="calendarJoinButton | px-[1.375rem] py-[0.375rem] rounded-full border border-black text-sm font-medium text-[red] hover:text-white hover:border-none"
                     onClick={() => {
                       LogoutUser();
                       navigate("/login");
@@ -53,7 +67,7 @@ export default function Navbar() {
                 <>
                   <li>
                     <button
-                      className="calendarJoinButton | px-[1.375rem] py-[0.375rem] rounded-full border border-[#9F9F9F] text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none"
+                      className="calendarJoinButton | px-[1.375rem] py-[0.375rem] rounded-full border border-black text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none"
                       onClick={() => navigate("/login")}
                     >
                       SignIn
@@ -61,7 +75,7 @@ export default function Navbar() {
                   </li>
                   <li>
                     <button
-                      className="calendarJoinButton | px-[1.375rem] py-[0.375rem] rounded-full border border-[#9F9F9F] text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none"
+                      className="calendarJoinButton | px-[1.375rem] py-[0.375rem] rounded-full border border-black text-sm font-medium text-[#6F6F6F] hover:text-white hover:border-none"
                       onClick={() => navigate("/register")}
                     >
                       SignUp
@@ -70,6 +84,9 @@ export default function Navbar() {
                 </>
               )}
             </ul>
+          </div>
+          <div className="md:hidden text-4xl">
+            <Link to="/">&#8801;</Link>
           </div>
         </div>
       </div>

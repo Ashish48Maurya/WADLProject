@@ -27,7 +27,7 @@ function App() {
           <Route exact path="form" element={<Form />} />
           <Route
             exact
-            path="grantPermission"
+            path="event/:id"
             element={<GrantPermissionPage />}
           />
         </Route>

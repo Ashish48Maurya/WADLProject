@@ -105,7 +105,7 @@ export default function EventHistory() {
                   <div>
                     <div className="mx-3 my-5 p-1 w-20">
                       <div
-                        className={`text-gray-600 text-[0.75rem] font-bold border border-secondary py-[0.3125rem] px-[0.6875rem] rounded-full w-max ${
+                        className={`text-600 text-[0.75rem] font-bold border border-secondary py-[0.3125rem] px-[0.6875rem] rounded-full w-max ${
                           allPermitted ? "bg-[#38f86e]" : "bg-red-500"
                         }`}
                       >

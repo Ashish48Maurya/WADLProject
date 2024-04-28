@@ -1,22 +1,47 @@
-import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React,{useEffect,useState} from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuth } from "./Store/auth";
 
 const GrantPermissionPage = () => {
+  const { token, backend_api } = useAuth();
+  const [data,setData] = useState({});
   const permissionDetails = {
-    eventType: "Workshop",
-    eventName: "React Fundamentals",
+    eventType: data.eventType,
+    eventName: data.eventName,
     url: "",
-    teamSize: 1,
-    noOfTeams: 10,
-    outSiders: "Allowed",
-    startTime: new Date("2023-05-01T09:00:00"),
-    endTime: new Date("2023-05-01T17:00:00"),
-    isAllDay: false,
-    supervisor: "Ashish nehra",
+    teamSize: data.teamSize,
+    noOfTeams: data.noOfTeams,
+    outSiders: data.outSiders,
+    startTime: new Date(data.startTime),
+    endTime: new Date(data.endTime),
+    isAllDay: data.isAllDay,
+    supervisor: data.supervisor,
   };
   const navigate = useNavigate();
+  const {id} = useParams();
   const location = useLocation();
+
+  const event = async () => {
+    try {
+        const res = await fetch(`${backend_api}/singleEvent/?id=${id}`, {
+            method: "get",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        if (res.status === 200) {
+            const res_data = await res.json();
+            setData(res_data.data);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+useEffect(() => {
+  event();
+}, [])
 
   const handleGrantPermission = () => {
     // Call the logic to grant permission

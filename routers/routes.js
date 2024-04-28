@@ -67,7 +67,7 @@ router.post('/permission', authMiddleware(), upload.single('file'), async (req, 
             from: process.env.GMAIL,
             to: permissionFromArray,
             title: "Permission For Conducting Event",
-            subject: `http://localhost:3000/event/${event._id}`
+            subject: `http://localhost:3000/private/event/${event._id}`
         });
 
         await event.save();
@@ -80,6 +80,7 @@ router.post('/permission', authMiddleware(), upload.single('file'), async (req, 
     }
 })
 
+router.get('/singleEvent',authMiddleware(),service.singleEvent);
 
 router.get('/teachers', service.teachers)
 

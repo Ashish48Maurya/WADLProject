@@ -128,6 +128,17 @@ const eventListForCalender = async(req,res)=>{
     }
 }
 
+const singleEvent = async(req,res)=>{
+    const {id} = req.query;
+    try{
+        const event = await Permission.findById(id);
+        return res.status(200).json({data : event});
+    }
+    catch(err){
+        return res.status(500).json(`Some Error Occured: ${err.message}`)
+    }
+}
+
 const permit = async (req, res) => {
     const permissionId = req.params.id;
     const { email } = req.user;
@@ -162,10 +173,4 @@ const permit = async (req, res) => {
     }
 }
 
-// const formattedEvent = {
-//     Subject: response.Subject,
-//     StartTime: new Date(response.StartTime),
-//     EndTime: new Date(response.EndTime),
-//     IsAllDay: response.IsAllDay
-//   };
-module.exports = { register, login, teachers, event, eventsList, permit,eventListForCalender };
+module.exports = { register, login, teachers, event, eventsList, permit,eventListForCalender,singleEvent };
