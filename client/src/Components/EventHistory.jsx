@@ -52,7 +52,7 @@ export default function EventHistory() {
                     backgroundColor: allPermitted ? "#38f86e" : "#ff0000",
                   }}
                 ></div>
-                <div className="px-[0.9375rem] border border-[#7C7A7A] rounded-[0.3125rem] bg-[hsl(0,0%,95%,20%)] shadow-[0_8px_15.1px_hsl(0,1%,25%,10%)] flex justify-evenly items-center">
+                <div className="px-[0.9375rem] border border-[#7C7A7A] rounded-[0.3125rem] bg-[hsl(0,0%,95%,20%)] shadow-[0_8px_15.1px_hsl(0,1%,25%,10%)] flex flex-wrap justify-evenly items-center">
                   <div className="space-y-1 border-r-2 pr-3 my-auto">
                     <div className="text-sm leading-5 font-semibold">
                       <span className="text-xs leading-4 font-normal text-gray-500 mr-2">
