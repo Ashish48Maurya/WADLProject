@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-transparent bg-opacity-80">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-center justify-between py-3">
           <div
             className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 text-sm md:text-xl font-bold flex items-center"

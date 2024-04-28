@@ -9,6 +9,7 @@ export default function Home() {
           <img
             src="https://img.freepik.com/free-vector/business-team-discussing-ideas-startup_74855-4380.jpg?w=1380&t=st=1714138159~exp=1714138759~hmac=ae2cc5b3f3514117ddec67ba195104e882318f5912bb71edf65006cdab3b8faf"
             alt="home"
+            className="max-w-full block"
           />
         </div>
         <div
