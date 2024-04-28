@@ -9,6 +9,7 @@ const cors = require("cors");
 app.use(cors())
 app.use(express.json());
 app.use(router); 
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 mongoConnect(process.env.MONGO_URL).then(async () => {
   app.listen(PORT, () => {
