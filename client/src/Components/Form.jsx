@@ -257,7 +257,7 @@ export default function Form() {
   const [outSiders, setOutSiders] = useState("");
   const [supervisor, setSupervisor] = useState("");
   const [file, setFile] = useState("");
-  const [isAllDay, setIsAllDay] = useState(false);
+  const [isAllDay, setIsAllDay] = useState();
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const ref = useRef(null);

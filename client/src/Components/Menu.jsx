@@ -1,15 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const closeMenu = (e) => {
+    if (menuRef.current && !menuRef.current.contains(e.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", closeMenu);
+
+    return () => {
+      document.removeEventListener("mousedown", closeMenu);
+    };
+  }, []);
+
   return (
-    <div className="relative ">
+    <div ref={menuRef} className="relative">
       <button
         onClick={toggleMenu}
         className="flex items-center focus:outline-none mx-2"
@@ -33,7 +48,7 @@ const Menu = () => {
           <li className="mb-1 border-b border-gray-300">
             <Link
               to="/private/schedule"
-              className="text-neutral-900  text-sm hover:text-gray-700"
+              className="text-neutral-900 text-sm hover:text-gray-700"
             >
               Schedule
             </Link>
@@ -41,7 +56,7 @@ const Menu = () => {
           <li className="mb-1 border-b border-gray-300">
             <Link
               to="/private/seeAllForms"
-              className="text-neutral-900  text-sm hover:text-gray-700"
+              className="text-neutral-900 text-sm hover:text-gray-700"
             >
               Applied Events
             </Link>
@@ -49,7 +64,7 @@ const Menu = () => {
           <li>
             <Link
               to="/private/form"
-              className="text-neutral-900  text-sm hover:text-gray-700"
+              className="text-neutral-900 text-sm hover:text-gray-700"
             >
               Apply For Event
             </Link>
