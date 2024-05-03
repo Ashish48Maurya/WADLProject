@@ -89,7 +89,7 @@ import {
 import { registerLicense } from "@syncfusion/ej2-base";
 
 registerLicense(
-  "Ngo9BigBOggjHTQxAR8/V1NBaF5cXmZCe0x0WmFZfVpgcl9EYVZQRWYuP1ZhSXxXdkFhXH9YcnVUR2VYVEc="
+  "ORg4AjUWIQA/Gnt2UFhhQlJBfV5AQmBIYVp/TGpJfl96cVxMZVVBJAtUQF1hTX5WdkdiXXpbcXRcT2hZ"
 );
 
 const data = [
